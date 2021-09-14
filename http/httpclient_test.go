@@ -7,6 +7,7 @@ import (
 )
 
 func TestGet(t *testing.T) {
+	defer log.Close()
 	url := "https://github.com/"
 	httpClient := NewHttpClient()
 	responseData, err := httpClient.Get(url, nil, _strings.Empty, nil, nil)
@@ -21,6 +22,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestPostJson(t *testing.T) {
+	defer log.Close()
 	url := "https://github.com/"
 	httpClient := NewHttpClient()
 	responseData, err := httpClient.PostJson(url, nil)
