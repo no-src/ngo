@@ -1,9 +1,11 @@
 package _http
 
 import (
-	"github.com/no-src/log"
-	"github.com/no-src/ngo/strings"
 	"testing"
+
+	"github.com/no-src/log"
+	"github.com/no-src/log/level"
+	"github.com/no-src/ngo/strings"
 )
 
 func TestGet(t *testing.T) {
@@ -37,5 +39,5 @@ func TestPostJson(t *testing.T) {
 }
 
 func init() {
-	log.InitDefaultLogger(log.NewConsoleLogger(log.DebugLevel))
+	log.InitDefaultLogger(log.NewConsoleLogger(level.DebugLevel))
 }
