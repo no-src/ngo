@@ -1,12 +1,14 @@
 package _agent
 
 import (
+	"time"
+
 	"github.com/no-src/log"
+	"github.com/no-src/log/level"
 	"github.com/no-src/ngo/cache"
 	"github.com/no-src/ngo/contract"
 	"github.com/no-src/ngo/encoding/json"
 	"github.com/no-src/ngo/http"
-	"time"
 )
 
 var (
@@ -23,7 +25,7 @@ const (
 )
 
 func init() {
-	apiAgentLogger = log.NewConsoleLogger(log.DebugLevel)
+	apiAgentLogger = log.NewConsoleLogger(level.DebugLevel)
 	cache = &_cache.EmptyCache{}
 	httpClient = _http.NewHttpClient()
 }
@@ -93,11 +95,11 @@ func setCache(key string, value _contract.ApiResponse) error {
 	return cache.Set(key, cacheData, ResponseCacheSeconds+60*5)
 }
 
-//post 发起post请求
-//url 请求地址
-//request 请求参数
-//requestCached 是否缓存请求 如果为true，会先检查本地是否有缓存 有则直接返回缓存数据
-//responseCached 是否缓存响应结果 如果为true，如果api服务器检测到服务端的响应结果与api调用客户端自己缓存的数据一致，则不会在响应中包含具体的数据
+// post 发起post请求
+// url 请求地址
+// request 请求参数
+// requestCached 是否缓存请求 如果为true，会先检查本地是否有缓存 有则直接返回缓存数据
+// responseCached 是否缓存响应结果 如果为true，如果api服务器检测到服务端的响应结果与api调用客户端自己缓存的数据一致，则不会在响应中包含具体的数据
 func post(url string, request *_contract.ApiRequest, requestCached bool, responseCached bool) (response *_contract.ApiResponse, err error) {
 
 	//发起请求前检查缓存是否存在，如果存在并且没有过期则不请求接口
